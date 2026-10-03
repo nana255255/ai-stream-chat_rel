@@ -79,7 +79,7 @@
 | 순서 | 무엇 | 어디서 | 왜 필요한가 |
 |---|---|---|---|
 | ① | **Ollama** | https://ollama.com/download | AI 시청자의 두뇌(AI 모델)를 내 PC에서 돌려주는 프로그램 |
-| ② | **AI 스트림 챗 설치 파일** | [Releases 페이지](https://github.com/nana255255/ai-stream-chat/releases/latest)의 `AIStreamChat-Setup-x.x.x.exe` | 이 프로그램 |
+| ② | **AI 스트림 챗 설치 파일** | [Releases 페이지](https://github.com/nana255255/ai-stream-chat_rel/releases/latest)의 `AIStreamChat-Setup-x.x.x.exe` | 이 프로그램 |
 | ③ | **Groq API 키** (무료) | https://console.groq.com/keys | 방송인 목소리를 글자로 바꾸는 데 필요 ([발급 방법](#groq-api-키-발급-방법)) |
 
 ---
@@ -119,7 +119,7 @@ ollama pull llama3.1:8b
 
 ### 3단계. AI 스트림 챗 설치
 
-1. [Releases 페이지](https://github.com/nana255255/ai-stream-chat/releases/latest)에서 `AIStreamChat-Setup-x.x.x.exe`를 받아요.
+1. [Releases 페이지](https://github.com/nana255255/ai-stream-chat_rel/releases/latest)에서 `AIStreamChat-Setup-x.x.x.exe`를 받아요.
 2. 실행하면 **"Windows의 PC 보호"** 창이 뜰 수 있어요. 아직 코드 서명(유료 인증서)을 하지 않은 프로그램이라 그래요.
    - **추가 정보** → **실행**을 누르면 설치가 계속돼요.
 3. **바탕화면에 아이콘 만들기**를 체크하고 설치해요.
@@ -338,10 +338,10 @@ Ollama가 꺼져 있거나 모델이 없는 경우예요.
 하루 사용량 한도에 도달했어요. 다음 날 다시 쓸 수 있어요.
 
 **Q. 설치할 때 "Windows의 PC 보호" 창이 떠요.**
-코드 서명을 아직 하지 않아서 뜨는 안내예요. **추가 정보 → 실행**을 누르면 설치돼요. 반드시 공식 [Releases 페이지](https://github.com/nana255255/ai-stream-chat/releases)에서 받은 파일만 실행하세요.
+코드 서명을 아직 하지 않아서 뜨는 안내예요. **추가 정보 → 실행**을 누르면 설치돼요. 반드시 공식 [Releases 페이지](https://github.com/nana255255/ai-stream-chat_rel/releases)에서 받은 파일만 실행하세요.
 
 **Q. 프로그램이 안 열리거나 오류 창이 떠요.**
-`%LOCALAPPDATA%\AIStreamChat\logs` 폴더의 오늘 날짜 로그 파일을 [Issues](https://github.com/nana255255/ai-stream-chat/issues)에 첨부해 주세요. (로그에는 키나 내가 한 말이 기록되지 않아요.)
+`%LOCALAPPDATA%\AIStreamChat\logs` 폴더의 오늘 날짜 로그 파일을 [Issues](https://github.com/nana255255/ai-stream-chat_rel/issues)에 첨부해 주세요. (로그에는 키나 내가 한 말이 기록되지 않아요.)
 
 ---
 
@@ -498,7 +498,7 @@ ALLOW_LOCAL_KEY_SETTINGS=1
 4. GitHub → **Releases** → **Draft a new release** → 태그 `v버전` → 아래 두 파일 첨부 → **Publish** (pre-release 체크 X)
    - `installer/Output/AIStreamChat-Setup-버전.exe`
    - `installer/Output/latest.json`
-5. 확인: https://github.com/nana255255/ai-stream-chat/releases/latest/download/latest.json 이 열리면 성공
+5. 확인: https://github.com/nana255255/ai-stream-chat_rel/releases/latest/download/latest.json 이 열리면 성공
 
 ---
 
