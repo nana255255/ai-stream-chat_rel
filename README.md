@@ -49,7 +49,9 @@
 - 방송인이 60초 동안 조용하면 꾹이가 혼자 잡담을 해요.
 - 한국어 한글로만 채팅해요. 영어·한자·이모지·이상한 기호는 걸러내요.
 - 욕설, 혐오 표현, 링크, 운영자 사칭, 후원 유도, 개인정보 질문은 걸러내요.
-- AI 시청자는 **내 PC에서 직접 돌아가는 AI(Ollama + Llama)**를 써요. 시청자 채팅을 만드는 데는 인터넷 요금이나 사용량 제한이 없어요.
+- AI 시청자의 두뇌는 **둘 중에 골라요.** 설정에서 바꿀 수 있어요.
+  - **Groq gpt-oss-120b (클라우드)**: 설치할 게 없고, 훨씬 똑똑하고 빨라요. 방송인이 한 말(글자)이 Groq로 전송돼요. 음성 인식에 쓰는 같은 Groq 키를 써요.
+  - **Llama 3.1 8B (내 PC)**: 내 PC의 Ollama에서 돌아가서 말한 내용이 PC 밖으로 나가지 않아요. 대신 Ollama 설치와 모델 받기가 필요하고, PC 사양에 따라 느릴 수 있어요.
 
 ### 🧑 방송인 정보
 - 설정에서 방송인 이름과 방송 소개를 적으면 시청자들이 그 이름으로 부르고 방송 분위기에 맞게 반응해요.
@@ -74,19 +76,19 @@
 
 > Mac은 아직 지원하지 않아요.
 
-### 다운로드할 것 (총 2개 + 키 1개)
+### 다운로드할 것 (기본 2개 + 선택 1개)
 
 | 순서 | 무엇 | 어디서 | 왜 필요한가 |
 |---|---|---|---|
-| ① | **Ollama** | https://ollama.com/download | AI 시청자의 두뇌(AI 모델)를 내 PC에서 돌려주는 프로그램 |
-| ② | **AI 스트림 챗 설치 파일** | [Releases 페이지](https://github.com/nana255255/ai-stream-chat_rel/releases/latest)의 `AIStreamChat-Setup-x.x.x.exe` | 이 프로그램 |
-| ③ | **Groq API 키** (무료) | https://console.groq.com/keys | 방송인 목소리를 글자로 바꾸는 데 필요 ([발급 방법](#groq-api-키-발급-방법)) |
+| ① | **AI 스트림 챗 설치 파일** | [Releases 페이지](https://github.com/nana255255/ai-stream-chat_rel/releases/latest)의 `AIStreamChat-Setup-x.x.x.exe` | 이 프로그램 |
+| ② | **Groq API 키** (무료) | https://console.groq.com/keys | 방송인 목소리를 글자로 바꾸고, 클라우드 AI 시청자를 쓰는 데 필요 ([발급 방법](#groq-api-키-발급-방법)) |
+| ③ | **Ollama** (선택) | https://ollama.com/download | **내 PC 안에서만** AI 시청자를 돌리고 싶을 때만 필요해요. Groq 모델을 쓸 거면 설치하지 않아도 돼요 |
 
 ---
 
 ## 설치 방법
 
-### 1단계. Ollama 설치
+### 1단계. Ollama 설치 (내 PC 모델을 쓸 때만, 아니면 건너뛰세요)
 
 1. https://ollama.com/download 에 들어가서 **Download for Windows**를 눌러요.
 2. 받은 `OllamaSetup.exe`를 실행해서 설치해요.
@@ -95,10 +97,10 @@
 ### 2단계. AI 모델 받기
 
 1. 시작 버튼을 누르고 **PowerShell**(또는 명령 프롬프트)을 검색해서 열어요.
-2. 아래 명령을 입력하고 엔터를 눌러요. 약 2GB를 받아요.
+2. 아래 명령을 입력하고 엔터를 눌러요. 약 5GB를 받아요.
 
    ```
-   ollama pull llama3.2:3b
+   ollama pull llama3.1:8b
    ```
 
 3. 마지막에 `success`가 나오면 끝이에요.
@@ -106,16 +108,6 @@
 > **명령어를 어느 폴더에서 실행해도 상관없어요.** 모델은 Ollama가 정해둔 폴더(`C:\Users\사용자\.ollama\models`)에 저장돼요.
 >
 > `ollama`를 찾을 수 없다는 오류가 나오면 PowerShell 창을 닫고 새로 열어보세요.
-
-**더 똑똑한 시청자를 원하면 (선택)**
-
-문맥을 더 잘 따라가는 큰 모델도 고를 수 있어요. 대신 메모리를 더 쓰고 대답이 느려질 수 있어요.
-
-```
-ollama pull llama3.1:8b
-```
-
-받은 뒤 프로그램 설정 → **AI 시청자 모델**에서 고르면 돼요.
 
 ### 3단계. AI 스트림 챗 설치
 
@@ -221,10 +213,13 @@ ollama pull llama3.1:8b
 ### AI 시청자 모델
 | 모델 | 특징 |
 |---|---|
-| **Llama 3.2 3B** (기본) | 가볍고 빨라요 · 메모리 4GB 이상 |
-| **Llama 3.1 8B** | 문맥을 더 잘 따라가요 · 메모리 8GB 이상, 대답이 느릴 수 있어요 |
+| 모델 | 어디서 돌아가요 | 특징 |
+|---|---|---|
+| **Llama 3.1 8B** | 내 PC (Ollama) | 말한 내용이 PC 밖으로 나가지 않아요 · 메모리 8GB 이상, 대답이 느릴 수 있어요 |
+| **Groq gpt-oss-120b** | Groq 클라우드 (API) | 훨씬 똑똑하고 빨라요 · 방송인이 한 말이 Groq로 전송돼요 · Groq 키 필요 |
 
-- Ollama에 설치되지 않은 모델은 **회색으로 막혀** 고를 수 없고, 설치 명령이 함께 표시돼요.
+- 쓸 수 없는 모델은 **회색으로 막히고** 이유가 표시돼요: `설치 안 됨`(설치 명령도 함께 표시), `Ollama 꺼짐`, `Groq 키 필요`.
+- Groq 모델은 음성 인식과 **같은 Groq 키**를 써요. 무료 한도는 모델마다 따로 정해져 있으니 [Groq 콘솔](https://console.groq.com)의 Limits에서 확인하세요.
 - 고른 모델은 기억돼서 다음 실행에도 그대로 써요.
 - 모델을 바꾸면 첫 대답은 모델을 불러오느라 조금 늦을 수 있어요.
 
@@ -252,7 +247,7 @@ ollama pull llama3.1:8b
 ### 💡 그 밖에
 - 탑바 스위치를 켜두면 내 말이 어떻게 인식됐는지 볼 수 있어요. 시청자가 엉뚱하게 반응하면, 먼저 인식된 문장이 맞는지 확인해 보세요.
 - 마이크를 켜두고 말을 안 하는 동안에는 음성이 서버로 가지 않아서 사용량이 들지 않아요.
-- 시청자 반응이 너무 엉뚱하면 설정에서 **Llama 3.1 8B**로 바꿔보세요.
+- 시청자 반응이 너무 엉뚱하거나 느리면 설정에서 **Groq gpt-oss-120b**로 바꿔보세요.
 
 ---
 
@@ -282,8 +277,8 @@ ollama pull llama3.1:8b
 | 데이터 | 어디로 | 설명 |
 |---|---|---|
 | 방송인 목소리 | **Groq** (음성 인식) | 말한 구간만 잘라서 보내요. 조용한 동안에는 아무것도 보내지 않아요 |
-| 글자로 바뀐 방송인 말 | 내 PC 안에서만 | AI 시청자(Ollama)가 내 PC에서 읽고 채팅을 만들어요 |
-| AI 시청자 채팅 | 내 PC 안에서만 | 외부로 보내지 않아요 |
+| 글자로 바뀐 방송인 말·방송 소개 | 모델에 따라 달라요 | **Llama(내 PC)**: 내 PC 안에서만 · **Groq gpt-oss-120b**: Groq로 전송돼요 (음성 인식에 이미 Groq를 쓰고 있어요) |
+| AI 시청자 채팅 | 내 PC 안에서만 | 만들어진 채팅은 외부로 보내지 않아요 |
 | Groq API 키 | 내 PC 안에서만 | 저장하면 Windows 자격 증명 관리자에, 아니면 메모리에만 |
 | 업데이트 확인 | GitHub | 버전 정보 파일만 받아요. 내 정보는 보내지 않아요 |
 
@@ -310,9 +305,11 @@ ollama pull llama3.1:8b
 ## 문제 해결 (FAQ)
 
 **Q. 시청자가 "ㅋㅋ" 같은 짧은 말만 하거나 반응이 없어요.**
-Ollama가 꺼져 있거나 모델이 없는 경우예요.
+AI 모델을 못 부른 경우예요. 설정 → AI 시청자 모델에서 지금 고른 모델과 상태를 먼저 확인하세요.
+- **Groq 모델**: Groq 키가 올바른지, Groq 무료 한도를 다 쓰지 않았는지 확인하세요. 한도에 걸리면 잠시 짧은 대체 반응만 나와요.
+- **내 PC 모델(Llama)**: Ollama가 꺼져 있거나 모델이 없는 경우예요.
 - 알림 영역에 Ollama(라마) 아이콘이 있는지 확인하세요. 없으면 시작 메뉴에서 Ollama를 실행하세요.
-- PowerShell에서 `ollama list`를 실행해 `llama3.2:3b`가 있는지 확인하세요. 없으면 `ollama pull llama3.2:3b`.
+- PowerShell에서 `ollama list`를 실행해 `llama3.1:8b`가 있는지 확인하세요. 없으면 `ollama pull llama3.1:8b`.
 - 설정 → AI 시청자 모델에 "Ollama가 켜져 있지 않아요"가 보이면 Ollama를 켠 뒤 설정을 다시 열어보세요.
 
 **Q. 말해도 글자로 안 바뀌고 시청자도 반응이 없어요.**
@@ -326,11 +323,11 @@ Ollama가 꺼져 있거나 모델이 없는 경우예요.
 
 **Q. 시청자가 문맥에 안 맞는 말을 해요.**
 - 탑바 스위치를 켜서 내 말이 제대로 인식됐는지 먼저 확인하세요.
-- 설정에서 **Llama 3.1 8B**로 바꾸면 문맥을 더 잘 따라가요.
+- 설정에서 **Groq gpt-oss-120b**로 바꾸면 문맥을 훨씬 더 잘 따라가요.
 - 작은 AI 모델이라 한국어 문맥 이해에 한계가 있어요.
 
 **Q. 대답이 너무 늦어요.**
-- 큰 모델(8B)을 쓰고 있다면 3B로 바꿔보세요.
+- **Groq gpt-oss-120b**로 바꾸면 대답이 훨씬 빨리 와요 (인터넷 상태에 따라 달라요). 내 PC 모델(Llama 8B)은 PC 사양에 따라 한 명당 수 초에서 십몇 초까지 걸릴 수 있어요.
 - 그래픽카드가 없는 PC는 AI가 CPU로 돌아서 느릴 수 있어요.
 - 방송 프로그램(OBS 등)과 같이 쓰면 메모리가 부족할 수 있어요.
 
@@ -351,7 +348,7 @@ Ollama가 꺼져 있거나 모델이 없는 경우예요.
 2. 아래는 삭제해도 남아 있어요. 완전히 지우려면 직접 지우세요.
    - **저장한 키**: 시작 메뉴에서 "자격 증명 관리자" → **Windows 자격 증명** → `ai-stream-chat` → 제거
    - **로그와 설정**: `%LOCALAPPDATA%\AIStreamChat` 폴더 삭제
-   - **AI 모델**: PowerShell에서 `ollama rm llama3.2:3b` (다른 앱에서 Ollama를 안 쓴다면 Ollama도 제거)
+   - **AI 모델**: PowerShell에서 `ollama rm llama3.1:8b` (다른 앱에서 Ollama를 안 쓴다면 Ollama도 제거)
 
 ---
 
@@ -370,7 +367,7 @@ flowchart LR
             SEC["키 보관<br/>secret_store"]
             UPD["업데이트<br/>updater"]
         end
-        OLL["Ollama<br/>Llama 3.2 3B / 3.1 8B"]
+        OLL["Ollama<br/>Llama 3.1 8B (선택)"]
         CRED["Windows<br/>자격 증명 관리자"]
     end
     GROQ["Groq<br/>Whisper 음성 인식"]
@@ -397,7 +394,7 @@ flowchart LR
 ④ [서버] Whisper가 조용한 구간에서 지어내는 문장("시청해주셔서 감사합니다" 등)은 버림
 ⑤ [서버] 글자를 화면에 보냄 (스위치 켜면 채팅에 보라색으로 표시)
 ⑥ [ChatDirector] 3초 기다림 (연달아 말하면 마지막 말 기준)
-⑦ [ChatDirector] 시청자마다 Ollama에 1번씩 요청
+⑦ [ChatDirector] 시청자마다 선택된 모델(Ollama 또는 Groq)에 1번씩 요청
      - 시청자 성격 + 공통 성격 + 방송인 정보 + 반응 예시 대화 + 방금 한 말
      - JSON으로 채팅 몇 줄을 받음
 ⑧ [검증] JSON 형식, 길이(40자), 한국어만, 금칙어, 링크·전화번호, 방송인 말 따라치기 차단
@@ -412,7 +409,7 @@ flowchart LR
 | 앱 창 | pywebview (Windows Edge WebView2) | 프로그램 창, 작업 표시줄 빨간 점, 한 번만 실행 |
 | 화면 | React + TypeScript + Vite | 채팅창, 설정, 마이크 듣기·문장 분할(AudioWorklet), 파형 |
 | 내부 서버 | Python, FastAPI, Uvicorn (open-llm-vtuber 기반) | WebSocket, 인증, 음성 인식 연결, 사용량 한도 |
-| AI 시청자 | `viewer_chat` 패키지 + Ollama | 트리거·디바운스, 페르소나별 생성, 검증, 송출 큐, 장애 시 템플릿으로 대체 |
+| AI 시청자 | `viewer_chat` 패키지 + Ollama 또는 Groq (설정에서 선택) | 트리거·디바운스, 페르소나별 생성, 검증, 송출 큐, 장애 시 템플릿으로 대체 |
 | 음성 인식 | Groq Whisper (`whisper-large-v3-turbo`) | 방송인 음성 → 한국어 텍스트 |
 | 키 보관 | `keyring` → Windows 자격 증명 관리자 | Groq 키 저장, 가린 값만 화면에 전달 |
 | 업데이트 | GitHub Releases + `latest.json` | 버전 확인, 허용된 주소만, SHA-256 검증 후 설치 |
@@ -426,7 +423,7 @@ flowchart LR
 | 입력 | 클라이언트 메시지 화이트리스트, 오디오 버퍼 상한(60초), 프로필 길이 제한 |
 | AI 프롬프트 | 방송인 말·소개는 구분자로 감싼 데이터로만 삽입, 지시 무시 규칙 |
 | AI 출력 | JSON 검증, 한국어만, 금칙어·사칭·후원 유도·링크·연락처 제거, 따라치기 차단 |
-| 남용 방지 | 디바운스, 분당 생성 상한, Ollama 동시 실행 1개, 연속 실패 시 템플릿 모드 |
+| 남용 방지 | 디바운스, 분당 생성 상한, Ollama 동시 실행 1개(Groq는 병렬 가능), 연속 실패 시 템플릿 모드 |
 | 비용 | Whisper 일일 총량 가드, 인당 일일 음성 한도, 짧은 소리·환각 문장 차단 |
 | 키 | OS 보안 저장소 또는 메모리, 로그·응답에 원문 없음, 빌드 결과물 키 검사 |
 | 업데이트 | 고정된 확인 주소, HTTPS + 허용 호스트, 크기 상한, SHA-256 일치 시에만 실행 |
@@ -504,7 +501,8 @@ ALLOW_LOCAL_KEY_SETTINGS=1
 
 ## 라이선스와 고지
 
-- **Built with Llama** — AI 시청자는 Meta의 Llama 모델(Llama 3.2, Llama 3.1)을 사용하며, 각 모델은 [Llama Community License](https://www.llama.com/llama-downloads/)와 [이용 정책](https://www.llama.com/use-policy/)을 따라요. 모델은 이 프로그램에 포함되지 않고, 사용자가 Ollama로 직접 받아요.
+- **Built with Llama** — 내 PC 모델을 고르면 Meta의 Llama 3.1을 사용하며, 이 모델은 [Llama Community License](https://www.llama.com/llama-downloads/)와 [이용 정책](https://www.llama.com/use-policy/)을 따라요. 모델은 이 프로그램에 포함되지 않고, 사용자가 Ollama로 직접 받아요.
+- **gpt-oss-120b** — OpenAI가 Apache 2.0 라이선스로 공개한 모델이며, 이 프로그램은 Groq의 API로 호출해요. Groq 이용은 Groq 약관을 따라요.
 - 이 프로젝트는 [Open-LLM-VTuber](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber)를 기반으로 만들었어요. 해당 프로젝트의 라이선스를 따라요.
 - 음성 인식은 [Groq](https://groq.com)의 서비스를 사용하며, 사용자는 Groq의 이용약관을 따라야 해요.
 - [Ollama](https://ollama.com)는 별도로 설치하는 프로그램이에요.
